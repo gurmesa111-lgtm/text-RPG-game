@@ -82,94 +82,111 @@ class Player:
     # Display the inventory and allow the player to use health potions
     def inventory(self):
         while True:
-            print("\n------Inventory------")
-            print(f"Gold: {self.gold}"
-                  f"\nHealth Potion: {self.h_potion}"
-                  f"\nWeapon: {self.weapon}")
-            print("\t1. Use Health Potion"
-                  "\n\t2. Back")
-            ch2 = int(input("Choice? "))
-            if ch2 == 1 and self.h_potion >= 1 and self.health < self.max_health:
-                self.health += 30
-                self.h_potion -= 1
-                if self.health > self.max_health:
-                    self.health = self.max_health
-                print(f"\nYou used a Health Potion"
-                      f"\nHealth: {self.health}"
-                      f"\nHealth Potion left: {self.h_potion}")
-            elif ch2 == 1 and self.h_potion == 0:
-                print("\nNo Health Potion left to use!")
-            elif ch2 == 1 and self.h_potion > 0 and self.health == self.max_health:
-                print("\nYour health is already full.")
-            elif ch2 == 2:
-                break
-            else:
-                print("Invalid input (Enter only 1 or 2)!")
+            try:
+                print("\n------Inventory------")
+                print(f"Gold: {self.gold}"
+                      f"\nHealth Potion: {self.h_potion}"
+                      f"\nWeapon: {self.weapon}")
+                print("\t1. Use Health Potion"
+                      "\n\t2. Back")
+                ch2 = int(input("Choice? "))
+                if ch2 == 1 and self.h_potion >= 1 and self.health < self.max_health:
+                    self.health += 30
+                    self.h_potion -= 1
+                    if self.health > self.max_health:
+                        self.health = self.max_health
+                    print(f"\n------------------------------"
+                          f"\nYou used a Health Potion"
+                          f"\nHealth: {self.health}/{self.max_health}"
+                          f"\nHealth Potion left: {self.h_potion}"
+                          f"\n------------------------------")
+                elif ch2 == 1 and self.h_potion == 0:
+                    print("\nNo Health Potion left to use!"
+                          "\nVisit the shop to buy the health potion.")
+                elif ch2 == 1 and self.h_potion > 0 and self.health == self.max_health:
+                    print("\nYour health is already full.")
+                elif ch2 == 2:
+                    break
+                else:
+                    print("\nONLY SELECT ONE OF THE GIVEN OPTIONS!(1 or 2)")
+            except ValueError:
+                print("\nSELECT ONE OF THE GIVEN OPTIONS!")
 
     # Display the shop and allow the player to purchase weapons and health potions
     def shop_items(self):
         while True:
-            print("\n------Weapon Shop------"
-                  "\n1. Wooden Sword   - Free"
-                  "\n2. Iron Sword     - 50 Gold"
-                  "\n3. Steel Sword    - 100 Gold"
-                  "\n4. Magic Sword    - 200 Gold"
-                  "\n5. Health Potion  - 25 Gold"
-                  "\n6. Exit Shop")
-            ch1 = int(input("Choice? "))
-            if ch1 == 1 and self.weapon == 'Wooden Sword':
-                print(f"You already own the {self.weapon}")
-            elif ch1 == 1 and self.weapon in ['Iron Sword', 'Steel Sword', 'Magic Sword']:
-                print("\nYou can't downgrade a weapon!")
-            elif ch1 in [1, 2] and self.weapon in ['Steel Sword', 'Magic Sword']:
-                print("\nYou can't downgrade a weapon!")
-            elif ch1 in [1, 2, 3] and self.weapon == 'Magic Sword':
-                print("\nYou can't downgrade a weapon!")
-            elif ch1 == 2 and self.weapon == 'Iron Sword':
-                print(f"You already own the {self.weapon}")
-            elif ch1 == 2 and self.gold >= 50:
-                self.attack = 30
-                self.weapon = 'Iron Sword'
-                self.gold -= 50
-                print(f"\nYou bought the Iron Sword!"
-                      f"\nWeapon equipped: Iron sword"
-                      f"\nAttack increased to {self.attack}.")
-            elif ch1 == 2 and self.gold < 50:
-                print("Not enough gold.")
-            elif ch1 == 3 and self.weapon == 'Steel Sword':
-                print(f"You already own the {self.weapon}")
-            elif ch1 == 3 and self.gold >= 100:
-                self.attack = 40
-                self.weapon = 'Steel Sword'
-                self.gold -= 100
-                print(f"\nYou bought the Steel Sword!"
-                      f"\nWeapon equipped: Steel sword"
-                      f"\nAttack increased to {self.attack}.")
-            elif ch1 == 3 and self.gold < 100:
-                print("Not enough gold.")
-            elif ch1 == 4 and self.weapon == 'Magic Sword':
-                print(f"You already own the {self.weapon}")
-            elif ch1 == 4 and self.gold >= 200:
-                self.attack = 55
-                self.weapon = 'Magic Sword'
-                self.gold -= 200
-                print(f"\nYou bought the Magic Sword!"
-                      f"\nWeapon equipped: Magic sword"
-                      f"\nAttack increased to {self.attack}.")
-            elif ch1 == 4 and self.gold < 200:
-                print("Not enough gold.")
-            elif ch1 == 5 and self.gold >= 25:
-                self.h_potion += 1
-                self.gold -= 25
-                print(f"You bought a health potion!"
-                      f"\nHealth Potion: {self.h_potion}"
-                      f"\nGold left: {self.gold}")
-            elif ch1 == 5 and self.gold < 25:
-                print("Not enough gold.")
-            elif ch1 == 6:
-                break
-            else:
-                print("Invalid input (Only enter a number between 1 and 6)")
+            try:
+                print("\n------Weapon Shop------"
+                      "\n1. Wooden Sword   - Free"
+                      "\n2. Iron Sword     - 50 Gold"
+                      "\n3. Steel Sword    - 100 Gold"
+                      "\n4. Magic Sword    - 200 Gold"
+                      "\n5. Health Potion  - 25 Gold"
+                      "\n6. Exit Shop")
+                ch1 = int(input("Choice? "))
+                if ch1 == 1 and self.weapon == 'Wooden Sword':
+                    print(f"You already own the {self.weapon}")
+                elif ch1 == 1 and self.weapon in ['Iron Sword', 'Steel Sword', 'Magic Sword']:
+                    print("\nYou can't downgrade a weapon!")
+                elif ch1 in [1, 2] and self.weapon in ['Steel Sword', 'Magic Sword']:
+                    print("\nYou can't downgrade a weapon!")
+                elif ch1 in [1, 2, 3] and self.weapon == 'Magic Sword':
+                    print("\nYou can't downgrade a weapon!")
+                elif ch1 == 2 and self.weapon == 'Iron Sword':
+                    print(f"You already own the {self.weapon}")
+                elif ch1 == 2 and self.gold >= 50:
+                    self.attack = 30
+                    self.weapon = 'Iron Sword'
+                    self.gold -= 50
+                    print(f"\n------------------------------"
+                          f"\nYou bought the Iron Sword!"
+                          f"\nWeapon equipped: Iron sword"
+                          f"\nAttack increased to {self.attack}."
+                          f"\n------------------------------")
+                elif ch1 == 2 and self.gold < 50:
+                    print("\nNot enough gold.")
+                elif ch1 == 3 and self.weapon == 'Steel Sword':
+                    print(f"You already own the {self.weapon}")
+                elif ch1 == 3 and self.gold >= 100:
+                    self.attack = 40
+                    self.weapon = 'Steel Sword'
+                    self.gold -= 100
+                    print(f"\n------------------------------"
+                          f"\nYou bought the Steel Sword!"
+                          f"\nWeapon equipped: Steel sword"
+                          f"\nAttack increased to {self.attack}."
+                          f"\n------------------------------")
+                elif ch1 == 3 and self.gold < 100:
+                    print("\nNot enough gold.")
+                elif ch1 == 4 and self.weapon == 'Magic Sword':
+                    print(f"You already own the {self.weapon}")
+                elif ch1 == 4 and self.gold >= 200:
+                    self.attack = 55
+                    self.weapon = 'Magic Sword'
+                    self.gold -= 200
+                    print(f"\n------------------------------"
+                          f"\nYou bought the Magic Sword!"
+                          f"\nWeapon equipped: Magic sword"
+                          f"\nAttack increased to {self.attack}."
+                          f"\n------------------------------")
+                elif ch1 == 4 and self.gold < 200:
+                    print("\nNot enough gold.")
+                elif ch1 == 5 and self.gold >= 25:
+                    self.h_potion += 1
+                    self.gold -= 25
+                    print(f"\n------------------------------"
+                          f"\nYou bought a health potion!"
+                          f"\nHealth Potion: {self.h_potion}"
+                          f"\nGold left: {self.gold}"
+                          f"\n------------------------------")
+                elif ch1 == 5 and self.gold < 25:
+                    print("\nNot enough gold.")
+                elif ch1 == 6:
+                    break
+                else:
+                    print("\nONLY SELECT ONE OF THE GIVEN OPTIONS!(1 to 6)")
+            except ValueError:
+                print("\nSELECT ONE OF THE GIVEN OPTIONS!")
 
     # Increase the player's level and stats when enough XP has been earned
     def level_up(self):
@@ -177,7 +194,7 @@ class Player:
             self.level += 1
             self.max_health = 110
             self.health = self.max_health
-            print(f"========================"
+            print(f"\n========================"
                   f"\nLEVEL UP!"
                   f"\nYou reached Level {self.level}!\n"
                   f"\nMax Health +10\n"
@@ -187,7 +204,7 @@ class Player:
             self.level += 1
             self.max_health = 120
             self.health = self.max_health
-            print(f"========================"
+            print(f"\n========================"
                   f"\nLEVEL UP!"
                   f"\nYou reached Level {self.level}!\n"
                   f"\nMax Health +10\n"
@@ -197,7 +214,7 @@ class Player:
             self.level += 1
             self.max_health = 130
             self.health = self.max_health
-            print(f"========================"
+            print(f"\n========================"
                   f"\nLEVEL UP!"
                   f"\nYou reached Level {self.level}!\n"
                   f"\nMax Health +10\n"
@@ -207,7 +224,7 @@ class Player:
             self.level += 1
             self.max_health = 140
             self.health = self.max_health
-            print(f"========================"
+            print(f"\n========================"
                   f"\nLEVEL UP!"
                   f"\nYou reached Level {self.level}!\n"
                   f"\nMax Health +10\n"
@@ -250,30 +267,43 @@ player = Player(p_name)
 enemy = Enemy()
 # Main game loop
 while True:
-    print("\n1. Attack"
-          "\n2. View status"
-          "\n3. Inventory"
-          "\n4. Shop"
-          "\n5. Quit")
-    select = int(input("Enter your choice: "))
-    if select == 1:
-        value = player.attack_enemy(enemy)
-        if value:
-            print("\nA new enemy approaches!")
-            enemy = Enemy()
-    elif select == 2:
-        print("\t1. Your status"
-              "\n\t2. Enemy's status")
-        ch = int(input("\tChoice? "))
-        if ch == 1:
-            player.show_status()
+    try:
+        print("\n1. Attack"
+              "\n2. View status"
+              "\n3. Inventory"
+              "\n4. Shop"
+              "\n5. Quit")
+        select = int(input("Enter your choice: "))
+        if select == 1:
+            value = player.attack_enemy(enemy)
+            if value:
+                print("\nA new enemy approaches!")
+                enemy = Enemy()
+        elif select == 2:
+            while True:
+                try:
+                    print("\n\t1. Your status"
+                          "\n\t2. Enemy's status"
+                          "\n\t3. Back")
+                    ch = int(input("\tChoice? "))
+                    if ch == 1:
+                        player.show_status()
+                    elif ch == 2:
+                        enemy.show_status()
+                    elif ch == 3:
+                        break
+                    else:
+                        print("\nONLY SELECT ONE OF THE GIVEN OPTIONS!(1 or 2)")
+                except ValueError:
+                    print("\nSELECT ONE OF THE GIVEN OPTIONS!")
+        elif select == 3:
+            player.inventory()
+        elif select == 4:
+            player.shop_items()
+        elif select == 5:
+            print("\nGOOD BYE!")
+            break
         else:
-            enemy.show_status()
-    elif select == 3:
-        player.inventory()
-    elif select == 4:
-        player.shop_items()
-    elif select == 5:
-        break
-    else:
-        print("Invalid input (Only enter a number between 1-5)")
+            print("\nONLY SELECT ONE OF THE GIVEN OPTIONS!(1 to 5)")
+    except ValueError:
+        print("\nSELECT ONE OF THE GIVEN OPTIONS!")
